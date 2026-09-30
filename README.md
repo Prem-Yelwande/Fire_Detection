@@ -8,6 +8,7 @@ Real-time fire and smoke detection using YOLO11 and OpenCV.
 - Smoke detection
 - Real-time webcam detection
 - Bounding boxes with confidence scores
+- High accuracy on common fire/smoke scenarios
 
 ## Tech Stack
 
