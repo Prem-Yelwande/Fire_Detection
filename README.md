@@ -43,3 +43,6 @@ Press `q` to quit the webcam window.
 
 - Requires a working webcam.
 - Make sure `best.pt` is present in the project root.
+
+---
+*Last updated: 2026-09-30*
