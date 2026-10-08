@@ -8,16 +8,17 @@ model = YOLO("best.pt")
 cap = cv2.VideoCapture(0)
 
 if not cap.isOpened():
-    print("Error: Could not open webcam.")
+    print("Error: Could not open webcam. Please check that a camera is connected and accessible.")
     exit(1)
 
-print("Starting real-time fire and smoke detection... Press 'q' to quit.")
+print("Starting real-time fire and smoke detection...")
+print("Press 'q' to quit the detection window.")
 
 while True:
     ret, frame = cap.read()
 
     if not ret:
-        print("Failed to grab frame.")
+        print("Failed to grab frame from webcam. Exiting.")
         break
 
     # Run inference
@@ -36,4 +37,4 @@ while True:
 # Cleanup
 cap.release()
 cv2.destroyAllWindows()
-print("Detection stopped.")
+print("Detection stopped. Resources released.")
