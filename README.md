@@ -43,9 +43,10 @@ Press `q` to quit the webcam window.
 ## Notes
 
 - Requires a working webcam.
-- Make sure `best.pt` is present in the project root.
+- Make sure `best.pt` is present in the project root (the script will exit with a clear error if it is missing).
 - For best results, ensure good lighting conditions.
 - Model works best with clear visibility of potential fire/smoke sources.
+- Camera resources are always released, even if inference fails.
 
 ---
-*Last updated: 2026-09-30*
+*Last updated: 2026-10-10*
