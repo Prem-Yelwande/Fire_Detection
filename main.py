@@ -1,3 +1,9 @@
+"""Real-time fire and smoke detection using a fine-tuned YOLO11 model and OpenCV.
+
+Opens the default webcam, runs inference on each frame, draws bounding boxes,
+and displays the annotated result. Press 'q' to exit.
+"""
+
 import sys
 from pathlib import Path
 
@@ -7,6 +13,9 @@ from ultralytics import YOLO
 # Resolve weights next to this script so the process works from any cwd.
 MODEL_PATH = Path(__file__).resolve().parent / "best.pt"
 
+# Change this if your camera is not the first device (0).
+CAMERA_INDEX = 0
+
 if not MODEL_PATH.is_file():
     print(f"Error: model weights not found at {MODEL_PATH}")
     sys.exit(1)
@@ -14,11 +23,11 @@ if not MODEL_PATH.is_file():
 # Load the trained fire & smoke detection model
 model = YOLO(str(MODEL_PATH))
 
-# Open default webcam (device 0)
-cap = cv2.VideoCapture(0)
+# Open webcam
+cap = cv2.VideoCapture(CAMERA_INDEX)
 
 if not cap.isOpened():
-    print("Error: Could not open webcam. Please check that a camera is connected and accessible.")
+    print(f"Error: Could not open webcam (index {CAMERA_INDEX}). Please check that a camera is connected and accessible.")
     sys.exit(1)
 
 print("Starting real-time fire and smoke detection...")
