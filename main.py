@@ -20,7 +20,7 @@ if not MODEL_PATH.is_file():
     print(f"Error: model weights not found at {MODEL_PATH}")
     sys.exit(1)
 
-# Load the trained fire & smoke detection model
+# Load the trained fire & smoke detection model (classes typically include fire and smoke).
 model = YOLO(str(MODEL_PATH))
 
 # Open webcam
@@ -32,6 +32,7 @@ if not cap.isOpened():
 
 print("Starting real-time fire and smoke detection...")
 print("Press 'q' to quit the detection window.")
+print("Note: Adjust model confidence in results.plot() or model.predict(conf=0.25) if needed.")
 
 try:
     while True:
