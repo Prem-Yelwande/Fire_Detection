@@ -47,6 +47,9 @@ Press `q` to quit the webcam window.
 - For best results, ensure good lighting conditions.
 - Model works best with clear visibility of potential fire/smoke sources.
 - Camera resources are always released, even if inference fails.
+- You can adjust the detection confidence threshold by modifying the `conf` argument in `model.predict()` (default is typically 0.25). Lower values increase sensitivity but may raise false positives.
+
+A Jupyter notebook (`app.ipynb`) is also included for interactive experimentation.
 
 ---
-*Last updated: 2026-10-10*
+*Last updated: 2026-10-17*
