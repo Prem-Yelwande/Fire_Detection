@@ -16,6 +16,10 @@ MODEL_PATH = Path(__file__).resolve().parent / "best.pt"
 # Change this if your camera is not the first device (0).
 CAMERA_INDEX = 0
 
+# Confidence threshold for detections. Lower values increase sensitivity
+# but may raise false positives. Typical range: 0.2-0.5.
+CONF_THRESHOLD = 0.25
+
 if not MODEL_PATH.is_file():
     print(f"Error: model weights not found at {MODEL_PATH}")
     sys.exit(1)
@@ -32,7 +36,7 @@ if not cap.isOpened():
 
 print("Starting real-time fire and smoke detection...")
 print("Press 'q' to quit the detection window.")
-print("Note: Adjust model confidence in results.plot() or model.predict(conf=0.25) if needed.")
+print(f"Using confidence threshold: {CONF_THRESHOLD}")
 
 try:
     while True:
@@ -42,8 +46,8 @@ try:
             print("Failed to grab frame from webcam. Exiting.")
             break
 
-        # Run inference
-        results = model(frame)
+        # Run inference with configurable confidence
+        results = model(frame, conf=CONF_THRESHOLD)
 
         # Draw bounding boxes and labels
         annotated_frame = results[0].plot()
