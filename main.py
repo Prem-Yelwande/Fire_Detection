@@ -20,8 +20,12 @@ CAMERA_INDEX = 0
 # but may raise false positives. Typical range: 0.2-0.5.
 CONF_THRESHOLD = 0.25
 
+# Window title shown in the OpenCV display.
+WINDOW_TITLE = "Fire and Smoke Detection"
+
 if not MODEL_PATH.is_file():
     print(f"Error: model weights not found at {MODEL_PATH}")
+    print("Please ensure 'best.pt' is in the same directory as this script.")
     sys.exit(1)
 
 # Load the trained fire & smoke detection model (classes typically include fire and smoke).
@@ -35,6 +39,7 @@ if not cap.isOpened():
     sys.exit(1)
 
 print("Starting real-time fire and smoke detection...")
+print(f"Window title: {WINDOW_TITLE}")
 print("Press 'q' to quit the detection window.")
 print(f"Using confidence threshold: {CONF_THRESHOLD}")
 
@@ -53,7 +58,7 @@ try:
         annotated_frame = results[0].plot()
 
         # Display the result
-        cv2.imshow("Fire and Smoke Detection", annotated_frame)
+        cv2.imshow(WINDOW_TITLE, annotated_frame)
 
         # Exit on 'q' key
         if cv2.waitKey(1) & 0xFF == ord("q"):
