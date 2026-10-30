@@ -29,6 +29,7 @@ if not MODEL_PATH.is_file():
     sys.exit(1)
 
 # Load the trained fire & smoke detection model (classes typically include fire and smoke).
+# Note: the first inference call may be slower due to model warm-up.
 model = YOLO(str(MODEL_PATH))
 
 # Open webcam
