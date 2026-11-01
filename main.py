@@ -39,6 +39,11 @@ if not cap.isOpened():
     print(f"Error: Could not open webcam (index {CAMERA_INDEX}). Please check that a camera is connected and accessible.")
     sys.exit(1)
 
+# Optional: reduce resolution for smoother real-time performance on lower-end hardware.
+# Uncomment the lines below if you experience lag.
+# cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
 print("Starting real-time fire and smoke detection...")
 print(f"Window title: {WINDOW_TITLE}")
 print("Press 'q' to quit the detection window.")
