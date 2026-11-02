@@ -18,6 +18,7 @@ CAMERA_INDEX = 0
 
 # Confidence threshold for detections. Lower values increase sensitivity
 # but may raise false positives. Typical range: 0.2-0.5.
+# For fire/smoke, 0.25-0.4 often works well depending on lighting and camera quality.
 CONF_THRESHOLD = 0.25
 
 # Window title shown in the OpenCV display.
@@ -73,4 +74,4 @@ finally:
     # Always release the device, including when inference raises.
     cap.release()
     cv2.destroyAllWindows()
-    print("Detection stopped. Resources released.")
+    print("Detection stopped. Webcam and windows released successfully.")
