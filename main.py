@@ -49,6 +49,7 @@ print("Starting real-time fire and smoke detection...")
 print(f"Window title: {WINDOW_TITLE}")
 print("Press 'q' to quit the detection window.")
 print(f"Using confidence threshold: {CONF_THRESHOLD}")
+print("Note: the first frame may take longer while the model warms up.")
 
 try:
     while True:
