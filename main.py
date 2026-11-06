@@ -47,9 +47,10 @@ if not cap.isOpened():
 
 print("Starting real-time fire and smoke detection...")
 print(f"Window title: {WINDOW_TITLE}")
+print(f"Confidence threshold: {CONF_THRESHOLD} (adjust CONF_THRESHOLD to tune sensitivity)")
 print("Press 'q' to quit the detection window.")
-print(f"Using confidence threshold: {CONF_THRESHOLD}")
 print("Note: the first frame may take longer while the model warms up.")
+print("Tip: ensure good lighting and clear view of potential fire/smoke sources for best results.")
 
 try:
     while True:
