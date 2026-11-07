@@ -31,7 +31,12 @@ if not MODEL_PATH.is_file():
 
 # Load the trained fire & smoke detection model (classes typically include fire and smoke).
 # Note: the first inference call may be slower due to model warm-up.
-model = YOLO(str(MODEL_PATH))
+try:
+    model = YOLO(str(MODEL_PATH))
+except Exception as e:
+    print(f"Error: Failed to load YOLO model from {MODEL_PATH}: {e}")
+    print("Check that the weights file is valid and ultralytics is installed correctly.")
+    sys.exit(1)
 
 # Open webcam
 cap = cv2.VideoCapture(CAMERA_INDEX)
