@@ -63,14 +63,16 @@ def main() -> None:
     if not cap.isOpened():
         print(
             f"Error: Could not open webcam (index {camera_index}). "
-            "Please check that a camera is connected and accessible."
+            "Please check that a camera is connected, not in use by another app, and accessible."
         )
+        print("Tip: try a different index with --camera N if you have multiple devices.")
         sys.exit(1)
 
     # Optional: reduce resolution for smoother real-time performance on lower-end hardware.
-    # Uncomment the lines below if you experience lag.
+    # Uncomment the lines below if you experience lag (also lowers CPU/GPU load).
     # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    # cap.set(cv2.CAP_PROP_FPS, 15)  # lower FPS can help on weaker machines
 
     print("Starting real-time fire and smoke detection...")
     print(f"Using camera index: {camera_index}")
