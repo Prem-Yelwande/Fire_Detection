@@ -38,6 +38,12 @@ uv sync
 python main.py
 ```
 
+Or with a specific camera:
+
+```bash
+python main.py --camera 1
+```
+
 Press `q` to quit the webcam window.
 
 ## Notes
@@ -48,9 +54,16 @@ Press `q` to quit the webcam window.
 - Model works best with clear visibility of potential fire/smoke sources.
 - Camera resources are always released, even if inference fails.
 - You can adjust the detection confidence threshold by modifying the `CONF_THRESHOLD` constant in `main.py` (default 0.25). Lower values increase sensitivity but may raise false positives. A value around 0.4–0.5 often balances accuracy for fire/smoke scenes.
-- If your webcam is not the first device, change `CAMERA_INDEX` in `main.py` (default is 0).
+- Use the `--camera` flag to select a different device if the default (0) does not work.
+
+## Troubleshooting
+
+- **Webcam won't open**: Try `python main.py --camera 1` (or other indices). Make sure no other application is using the camera.
+- **Low FPS / lag**: Uncomment the resolution and FPS lines in `main.py` to reduce load.
+- **Model not found**: Confirm `best.pt` is in the same directory as `main.py`.
+- **Import errors**: Run `uv sync` again to ensure all dependencies are installed.
 
 A Jupyter notebook (`app.ipynb`) is also included for interactive experimentation.
 
 ---
-*Last updated: 2026-10-31*
+*Last updated: 2026-11-10*
