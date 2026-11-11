@@ -21,7 +21,8 @@ MODEL_PATH = Path(__file__).resolve().parent / "best.pt"
 # Confidence threshold for detections. Lower values increase sensitivity
 # but may raise false positives. Typical range: 0.2-0.5.
 # For fire/smoke, 0.25-0.4 often works well depending on lighting and camera quality.
-CONF_THRESHOLD = 0.25
+# Adjust based on false positive rate observed during testing.
+CONF_THRESHOLD: float = 0.25
 
 # Window title shown in the OpenCV display.
 WINDOW_TITLE = "Fire and Smoke Detection"
