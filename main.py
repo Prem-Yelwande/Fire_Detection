@@ -4,8 +4,9 @@ Opens the default webcam, runs inference on each frame, draws bounding boxes,
 and displays the annotated result. Press 'q' to exit.
 
 Usage:
-    python main.py                  # use default camera (index 0)
+    python main.py                  # use default camera (index 0) and conf 0.25
     python main.py --camera 1       # use camera index 1
+    python main.py --conf 0.4       # higher confidence to reduce false positives
 """
 
 import argparse
@@ -18,11 +19,11 @@ from ultralytics import YOLO
 # Resolve weights next to this script so the process works from any cwd.
 MODEL_PATH = Path(__file__).resolve().parent / "best.pt"
 
-# Confidence threshold for detections. Lower values increase sensitivity
+# Default confidence threshold for detections. Lower values increase sensitivity
 # but may raise false positives. Typical range: 0.2-0.5.
 # For fire/smoke, 0.25-0.4 often works well depending on lighting and camera quality.
 # Adjust based on false positive rate observed during testing.
-CONF_THRESHOLD: float = 0.25
+DEFAULT_CONF_THRESHOLD: float = 0.25
 
 # Window title shown in the OpenCV display.
 WINDOW_TITLE = "Fire and Smoke Detection"
@@ -37,12 +38,23 @@ def parse_args() -> argparse.Namespace:
         default=0,
         help="Camera device index (default: 0)",
     )
+    parser.add_argument(
+        "--conf",
+        type=float,
+        default=DEFAULT_CONF_THRESHOLD,
+        help=f"Confidence threshold for detections (default: {DEFAULT_CONF_THRESHOLD})",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
     camera_index = args.camera
+    conf_threshold = args.conf
+
+    if not (0.0 < conf_threshold <= 1.0):
+        print(f"Error: Confidence threshold must be between 0 and 1 (got {conf_threshold})")
+        sys.exit(1)
 
     if not MODEL_PATH.is_file():
         print(f"Error: model weights not found at {MODEL_PATH}")
@@ -78,7 +90,7 @@ def main() -> None:
     print("Starting real-time fire and smoke detection...")
     print(f"Using camera index: {camera_index}")
     print(f"Window title: {WINDOW_TITLE}")
-    print(f"Confidence threshold: {CONF_THRESHOLD} (adjust CONF_THRESHOLD to tune sensitivity)")
+    print(f"Confidence threshold: {conf_threshold} (adjust with --conf to tune sensitivity)")
     print("Press 'q' to quit the detection window.")
     print("Note: the first frame may take longer while the model warms up.")
     print("Tip: ensure good lighting and clear view of potential fire/smoke sources for best results.")
@@ -92,7 +104,7 @@ def main() -> None:
                 break
 
             # Run inference with configurable confidence
-            results = model(frame, conf=CONF_THRESHOLD)
+            results = model(frame, conf=conf_threshold)
 
             # Draw bounding boxes and labels
             annotated_frame = results[0].plot()
