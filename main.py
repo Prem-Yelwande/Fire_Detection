@@ -103,8 +103,13 @@ def main() -> None:
                 print("Failed to grab frame from webcam. Exiting.")
                 break
 
-            # Run inference with configurable confidence
-            results = model(frame, conf=conf_threshold)
+            # Run inference with configurable confidence. Catch inference errors
+            # so a single bad frame does not crash the whole session.
+            try:
+                results = model(frame, conf=conf_threshold)
+            except Exception as infer_err:
+                print(f"Inference error on frame: {infer_err}. Skipping frame.")
+                continue
 
             # Draw bounding boxes and labels
             annotated_frame = results[0].plot()
