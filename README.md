@@ -44,6 +44,12 @@ Or with a specific camera:
 python main.py --camera 1
 ```
 
+Adjust confidence threshold (default 0.25):
+
+```bash
+python main.py --conf 0.4
+```
+
 Press `q` to quit the webcam window.
 
 ## Notes
@@ -53,7 +59,7 @@ Press `q` to quit the webcam window.
 - For best results, ensure good lighting conditions.
 - Model works best with clear visibility of potential fire/smoke sources.
 - Camera resources are always released, even if inference fails.
-- You can adjust the detection confidence threshold by modifying the `CONF_THRESHOLD` constant in `main.py` (default 0.25). Lower values increase sensitivity but may raise false positives. A value around 0.4–0.5 often balances accuracy for fire/smoke scenes.
+- Confidence threshold can be set via the `--conf` flag (default 0.25). Lower values increase sensitivity but may raise false positives. A value around 0.4–0.5 often balances accuracy for fire/smoke scenes.
 - Use the `--camera` flag to select a different device if the default (0) does not work.
 
 ## Troubleshooting
@@ -62,8 +68,9 @@ Press `q` to quit the webcam window.
 - **Low FPS / lag**: Uncomment the resolution and FPS lines in `main.py` to reduce load.
 - **Model not found**: Confirm `best.pt` is in the same directory as `main.py`.
 - **Import errors**: Run `uv sync` again to ensure all dependencies are installed.
+- **Too many false positives**: Increase the confidence threshold with `--conf 0.5` (or higher).
 
 A Jupyter notebook (`app.ipynb`) is also included for interactive experimentation.
 
 ---
-*Last updated: 2026-11-10*
+*Last updated: 2026-11-14*
