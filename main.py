@@ -93,6 +93,7 @@ def main() -> None:
     print(f"Confidence threshold: {conf_threshold} (adjust with --conf to tune sensitivity)")
     print("Press 'q' to quit the detection window.")
     print("Note: the first frame may take longer while the model warms up.")
+    print("Tip: For better performance on low-end hardware, consider lowering resolution (see comments above).")
     print("Tip: ensure good lighting and clear view of potential fire/smoke sources for best results.")
 
     try:
