@@ -7,10 +7,12 @@ Usage:
     python main.py                  # use default camera (index 0) and conf 0.25
     python main.py --camera 1       # use camera index 1
     python main.py --conf 0.4       # higher confidence to reduce false positives
+    python main.py --show-fps       # overlay approximate FPS on the frame
 """
 
 import argparse
 import sys
+import time
 from pathlib import Path
 
 import cv2
@@ -44,6 +46,11 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_CONF_THRESHOLD,
         help=f"Confidence threshold for detections (default: {DEFAULT_CONF_THRESHOLD})",
     )
+    parser.add_argument(
+        "--show-fps",
+        action="store_true",
+        help="Overlay approximate frames-per-second on the display window",
+    )
     return parser.parse_args()
 
 
@@ -51,6 +58,7 @@ def main() -> None:
     args = parse_args()
     camera_index = args.camera
     conf_threshold = args.conf
+    show_fps = args.show_fps
 
     if not (0.0 < conf_threshold <= 1.0):
         print(f"Error: Confidence threshold must be between 0 and 1 (got {conf_threshold})")
@@ -91,11 +99,14 @@ def main() -> None:
     print(f"Using camera index: {camera_index}")
     print(f"Window title: {WINDOW_TITLE}")
     print(f"Confidence threshold: {conf_threshold} (adjust with --conf to tune sensitivity)")
+    if show_fps:
+        print("FPS overlay enabled (approximate).")
     print("Press 'q' to quit the detection window.")
     print("Note: the first frame may take longer while the model warms up.")
     print("Tip: For better performance on low-end hardware, consider lowering resolution (see comments above).")
     print("Tip: ensure good lighting and clear view of potential fire/smoke sources for best results.")
 
+    prev_time = time.perf_counter()
     try:
         while True:
             ret, frame = cap.read()
@@ -115,6 +126,22 @@ def main() -> None:
             # Draw bounding boxes and labels
             annotated_frame = results[0].plot()
 
+            # Optional FPS overlay (approximate, based on wall-clock time between frames)
+            if show_fps:
+                curr_time = time.perf_counter()
+                fps = 1.0 / (curr_time - prev_time) if (curr_time - prev_time) > 0 else 0.0
+                prev_time = curr_time
+                cv2.putText(
+                    annotated_frame,
+                    f"FPS: {fps:.1f}",
+                    (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    1,
+                    (0, 255, 0),
+                    2,
+                    cv2.LINE_AA,
+                )
+
             # Display the result
             cv2.imshow(WINDOW_TITLE, annotated_frame)
 
@@ -126,6 +153,7 @@ def main() -> None:
         cap.release()
         cv2.destroyAllWindows()
         print("Detection stopped. Webcam and windows released successfully.")
+        print("Tip: if the camera stays locked, restart your terminal or check for other processes using it.")
 
 
 if __name__ == "__main__":
