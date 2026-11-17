@@ -30,6 +30,9 @@ DEFAULT_CONF_THRESHOLD: float = 0.25
 # Window title shown in the OpenCV display.
 WINDOW_TITLE = "Fire and Smoke Detection"
 
+# Key used to quit the detection loop.
+QUIT_KEY = ord("q")
+
 
 def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
@@ -127,6 +130,7 @@ def main() -> None:
             annotated_frame = results[0].plot()
 
             # Optional FPS overlay (approximate, based on wall-clock time between frames)
+            # Note: this is a simple instantaneous estimate and may fluctuate.
             if show_fps:
                 curr_time = time.perf_counter()
                 fps = 1.0 / (curr_time - prev_time) if (curr_time - prev_time) > 0 else 0.0
@@ -145,8 +149,8 @@ def main() -> None:
             # Display the result
             cv2.imshow(WINDOW_TITLE, annotated_frame)
 
-            # Exit on 'q' key
-            if cv2.waitKey(1) & 0xFF == ord("q"):
+            # Exit on quit key
+            if cv2.waitKey(1) & 0xFF == QUIT_KEY:
                 break
     finally:
         # Always release the device, including when inference raises.
