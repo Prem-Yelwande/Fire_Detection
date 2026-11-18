@@ -76,6 +76,8 @@ def main() -> None:
     # Note: the first inference call may be slower due to model warm-up.
     try:
         model = YOLO(str(MODEL_PATH))
+        # Print class names so users can verify the model loaded the expected labels.
+        print(f"Loaded model classes: {model.names}")
     except Exception as e:
         print(f"Error: Failed to load YOLO model from {MODEL_PATH}: {e}")
         print("Check that the weights file is valid and ultralytics is installed correctly.")
