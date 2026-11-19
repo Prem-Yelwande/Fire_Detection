@@ -63,8 +63,13 @@ def main() -> None:
     conf_threshold = args.conf
     show_fps = args.show_fps
 
+    if camera_index < 0:
+        print(f"Error: Camera index must be non-negative (got {camera_index}).")
+        print("Use --camera 0 for the default webcam, or a higher index for other devices.")
+        sys.exit(1)
+
     if not (0.0 < conf_threshold <= 1.0):
-        print(f"Error: Confidence threshold must be between 0 and 1 (got {conf_threshold})")
+        print(f"Error: Confidence threshold must be between 0 (exclusive) and 1 (inclusive) (got {conf_threshold})")
         sys.exit(1)
 
     if not MODEL_PATH.is_file():
