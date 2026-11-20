@@ -35,7 +35,7 @@ QUIT_KEY = ord("q")
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse command-line arguments."""
+    """Parse command-line arguments for camera, confidence, and display options."""
     parser = argparse.ArgumentParser(description="Real-time fire and smoke detection")
     parser.add_argument(
         "--camera",
@@ -70,6 +70,7 @@ def main() -> None:
 
     if not (0.0 < conf_threshold <= 1.0):
         print(f"Error: Confidence threshold must be between 0 (exclusive) and 1 (inclusive) (got {conf_threshold})")
+        print("Tip: start with 0.25-0.4 and raise if you see too many false positives.")
         sys.exit(1)
 
     if not MODEL_PATH.is_file():
