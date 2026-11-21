@@ -9,6 +9,7 @@ Real-time fire and smoke detection using YOLO11 and OpenCV.
 - Real-time webcam detection
 - Bounding boxes with confidence scores
 - High accuracy on common fire/smoke scenarios
+- Optional FPS overlay for performance monitoring
 
 ## Tech Stack
 
@@ -50,6 +51,12 @@ Adjust confidence threshold (default 0.25):
 python main.py --conf 0.4
 ```
 
+Overlay approximate FPS on the frame:
+
+```bash
+python main.py --show-fps
+```
+
 Press `q` to quit the webcam window.
 
 ## Notes
@@ -61,6 +68,7 @@ Press `q` to quit the webcam window.
 - Camera resources are always released, even if inference fails.
 - Confidence threshold can be set via the `--conf` flag (default 0.25). Lower values increase sensitivity but may raise false positives. A value around 0.4–0.5 often balances accuracy for fire/smoke scenes.
 - Use the `--camera` flag to select a different device if the default (0) does not work.
+- The `--show-fps` flag displays an approximate frames-per-second overlay to help tune performance.
 
 ## Troubleshooting
 
@@ -73,4 +81,4 @@ Press `q` to quit the webcam window.
 A Jupyter notebook (`app.ipynb`) is also included for interactive experimentation.
 
 ---
-*Last updated: 2026-11-14*
+*Last updated: 2026-11-21*
