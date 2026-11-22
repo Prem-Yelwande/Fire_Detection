@@ -69,6 +69,7 @@ Press `q` to quit the webcam window.
 - Confidence threshold can be set via the `--conf` flag (default 0.25). Lower values increase sensitivity but may raise false positives. A value around 0.4–0.5 often balances accuracy for fire/smoke scenes.
 - Use the `--camera` flag to select a different device if the default (0) does not work.
 - The `--show-fps` flag displays an approximate frames-per-second overlay to help tune performance.
+- Tip: If you have a CUDA-capable GPU, the Ultralytics YOLO model will automatically use it for faster inference when available.
 
 ## Troubleshooting
 
@@ -81,4 +82,4 @@ Press `q` to quit the webcam window.
 A Jupyter notebook (`app.ipynb`) is also included for interactive experimentation.
 
 ---
-*Last updated: 2026-11-21*
+*Last updated: 2026-11-22*
