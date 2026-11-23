@@ -82,7 +82,8 @@ def main() -> None:
     # Note: the first inference call may be slower due to model warm-up.
     try:
         model = YOLO(str(MODEL_PATH))
-        # Print class names so users can verify the model loaded the expected labels.
+        # Print class names and path so users can verify the model loaded correctly.
+        print(f"Loaded model from: {MODEL_PATH}")
         print(f"Loaded model classes: {model.names}")
     except Exception as e:
         print(f"Error: Failed to load YOLO model from {MODEL_PATH}: {e}")
@@ -116,6 +117,7 @@ def main() -> None:
     print("Note: the first frame may take longer while the model warms up.")
     print("Tip: For better performance on low-end hardware, consider lowering resolution (see comments above).")
     print("Tip: ensure good lighting and clear view of potential fire/smoke sources for best results.")
+    print("Tip: a CUDA GPU will be used automatically if available for faster inference.")
 
     prev_time = time.perf_counter()
     try:
