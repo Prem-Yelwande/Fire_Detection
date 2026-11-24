@@ -31,6 +31,8 @@ DEFAULT_CONF_THRESHOLD: float = 0.25
 WINDOW_TITLE = "Fire and Smoke Detection"
 
 # Key used to quit the detection loop.
+# Note: the OpenCV window must have keyboard focus for the quit key to be registered
+# on some platforms; click the window first if 'q' appears unresponsive.
 QUIT_KEY = ord("q")
 
 
