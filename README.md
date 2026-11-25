@@ -70,6 +70,7 @@ Press `q` to quit the webcam window.
 - Use the `--camera` flag to select a different device if the default (0) does not work.
 - The `--show-fps` flag displays an approximate frames-per-second overlay to help tune performance.
 - Tip: If you have a CUDA-capable GPU, the Ultralytics YOLO model will automatically use it for faster inference when available.
+- Tip: On CPU-only systems, reduce input resolution in `main.py` (look for the commented CAP_PROP lines) to improve FPS.
 
 ## Troubleshooting
 
@@ -82,4 +83,4 @@ Press `q` to quit the webcam window.
 A Jupyter notebook (`app.ipynb`) is also included for interactive experimentation.
 
 ---
-*Last updated: 2026-11-22*
+*Last updated: 2026-11-25*
