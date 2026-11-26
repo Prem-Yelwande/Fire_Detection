@@ -25,6 +25,8 @@ The project uses a YOLO11 model fine-tuned on a fire and smoke dataset.
 - `yolo11n.pt` — pretrained YOLO11 model
 - `best.pt` — trained fire and smoke detection model
 
+After loading, the script prints the model path and class names so you can verify it loaded correctly.
+
 ## Setup & Run
 
 1. Install dependencies:
@@ -71,6 +73,7 @@ Press `q` to quit the webcam window.
 - The `--show-fps` flag displays an approximate frames-per-second overlay to help tune performance.
 - Tip: If you have a CUDA-capable GPU, the Ultralytics YOLO model will automatically use it for faster inference when available.
 - Tip: On CPU-only systems, reduce input resolution in `main.py` (look for the commented CAP_PROP lines) to improve FPS.
+- Tip: Check the printed class names after startup to confirm the model expects the classes you care about (typically fire and smoke).
 
 ## Troubleshooting
 
@@ -83,4 +86,4 @@ Press `q` to quit the webcam window.
 A Jupyter notebook (`app.ipynb`) is also included for interactive experimentation.
 
 ---
-*Last updated: 2026-11-25*
+*Last updated: 2026-11-26*
