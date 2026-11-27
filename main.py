@@ -78,6 +78,7 @@ def main() -> None:
     if not MODEL_PATH.is_file():
         print(f"Error: model weights not found at {MODEL_PATH}")
         print("Please ensure 'best.pt' is in the same directory as this script.")
+        print("You can train your own or download a suitable YOLO11 fire/smoke weights file.")
         sys.exit(1)
 
     # Load the trained fire & smoke detection model (classes typically include fire and smoke).
@@ -142,7 +143,7 @@ def main() -> None:
             annotated_frame = results[0].plot()
 
             # Optional FPS overlay (approximate, based on wall-clock time between frames)
-            # Note: this is a simple instantaneous estimate and may fluctuate.
+            # Note: this is a simple instantaneous estimate and may fluctuate with system load.
             if show_fps:
                 curr_time = time.perf_counter()
                 fps = 1.0 / (curr_time - prev_time) if (curr_time - prev_time) > 0 else 0.0
